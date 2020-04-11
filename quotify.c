@@ -11,7 +11,6 @@ int main(int argc, char **argv)
     int i=1;
     while(i<argc)
     {
-      printf("fetch %d: %s\n",i,argv[i]);
       if(strncmp(argv[i],"-", strlen("-"))) /* if not -; don't worry about strncmp */
       {
         /* remember strncmp returns 0 on matches so we don't invert */
