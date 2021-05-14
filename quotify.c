@@ -14,6 +14,8 @@ int main(int argc, char **argv)
       if(strncmp(argv[i],"-", strlen("-"))) /* if not -; don't worry about strncmp */
       {
         /* remember strncmp returns 0 on matches so we don't invert */
+        /* note to self: would it be good to add 'b' to the mode here?
+           Are there win32/DOS users that need to use regexes in scripts? */
         stream=fopen(argv[i],"r");
         if(stream==0) /* if null returned */
         {
