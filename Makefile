@@ -2,7 +2,7 @@
 # by Wyatt Ward, 2021
 
 # Tested working in GNU Make, smake (Schily tools, by Joerg Schilling),
-# nmake (AT&T AST NMake, by David Korn), and SunPro Make (Sun Microsystems,
+# nmake (AT&T AST NMake, by Glenn Fowler), and SunPro Make (Sun Microsystems,
 # fork maintained by Joerg Schlling; you may need CC=(your compiler) to be
 # set).
 
