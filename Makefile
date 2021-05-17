@@ -22,7 +22,10 @@ realpath-posix: realpath-posix.c
 sleep-decimal: sleep-decimal.c
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
+wineify: wineify.c
+	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
+
 .PHONY: clean
 
 clean:
-	rm -f case-insensitive-pattern quotify realpath-posix sleep-decimal
+	rm -f case-insensitive-pattern quotify realpath-posix sleep-decimal wineify

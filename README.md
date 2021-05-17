@@ -25,6 +25,19 @@ For instance:
   * Handy for some simple cases, like while preparing text for conversion into
     an e-book.
 
+* `wineify.c`:
+  * This one is highly specific and probably not well suited for any task.
+    It tries to guess what that is being passed to it is a command-line
+    flag and what isn't; if it doesn't think something's a command-line
+    flag it assumes it is a filename and runs it through `winepath -w`,
+    printing a null-terminated result (suitable for GNU xargs' `xargs -0`).
+    This exists solely to wrap around Photoshop in wine so that I can pass
+    it unix file names/paths and have them open properly. If something is
+    probably not a filename, it gets passed through unchanged with a null
+    terminator on the end. This also uses `popen()`, so it's pretty much
+    as insecure as the `system()` call is. Don't use this unless you really
+    understand what it is doing.
+
 Others tools are inspired by GNU-only, BSD-only, and other system-specific
 programs or command options which I have found useful and wish to be able to
 replicate in scripts on a wider array of Unix-like machines. 
