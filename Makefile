@@ -8,7 +8,7 @@
 
 .PHONY: all
 
-all: case-insensitive-pattern quotify realpath-posix sleep-decimal
+all: case-insensitive-pattern quotify realpath-posix sleep-decimal wineify
 
 case-insensitive-pattern: case-insensitive-pattern.c
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)

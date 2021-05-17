@@ -53,7 +53,7 @@ void winepath(char *str)
   FILE *fp=popen(run_string, "r");
   if(fp==NULL)
   {
-    printf("E: unable to open process\n");
+    fprintf(stderr, "E: unable to open process\n");
     free(run_string);
     return;
   }
