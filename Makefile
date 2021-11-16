@@ -19,6 +19,9 @@ quotify: quotify.c
 realpath-posix: realpath-posix.c
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
+rgb2hex: rgb2hex.c
+	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
+
 sleep-decimal: sleep-decimal.c
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
