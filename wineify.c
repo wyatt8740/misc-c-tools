@@ -59,7 +59,13 @@ void winepath(char *str)
   }
   while( (c=fgetc(fp)) != EOF)
   {
-    if(c=='\n') {
+/* strip newlines and replace with null terminators. Note that obviously this
+   will break down if you have files with newlines. So don't do that.
+   I might be able to look ahead and use ungetc() so that in the case of
+   multiple newlines in a row we can determine that only the last one should
+   be a null terminator, but I'm feeling tired right now. */
+    if(c=='\n')
+    {
       putchar(0);
     }
     else {
