@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+/* this is an ugly fast program I wrote since I called a program called
+  'rgb2hex' in one of my old shell scripts but could not find the program
+  anywhere on my system. This re-implements it. */
 int main(int argc, char **argv) {
   char redc[4]="000";
   char bluec[4]="000";
