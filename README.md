@@ -1,7 +1,8 @@
 # misc-c-utils
 
 This is basically just a repository to host an assortment of small C programs
-I've written, mostly as an aid to writing more portable shell scripts.
+I've written (and one I didn't), mostly as an aid to writing more portable
+shell scripts.
 
 Some of these utilities are of my own design to simplify specific tasks.
 For instance:
@@ -24,6 +25,19 @@ For instance:
     nested double quotes. **Caveat emptor**.
   * Handy for some simple cases, like while preparing text for conversion into
     an e-book.
+
+* `which.c`:
+  * This one I did not write; it was [stolen from OpenBSD](https://cvsweb.openbsd.org/cgi-bin/cvsweb/~checkout~/src/usr.bin/which/which.c?rev=1.27&content-type=text/plain)
+    and modified just enough to compile without warnings on Linux. This was
+    prompted by Debian's removal of its `which` shell script from `debianutils,
+    since their recommended replacement, `command -v`, has a handful of
+    shortcomings regarding aliases, and also does not have an analogue for
+    `which -a`. Also, since pretty much every free Unix for a long time has had
+    `which` (going back to NetBSD in the 90's at least), it seems like an
+    unusual choice to remove. The man pages are also included (unaltered).
+    The only thing I wrote for this was a Makefile, plus a few minor
+    tweaks (under ten lines) to get rid of OpenBSD-isms and replace one
+    such OpenBSD-ism with a Linux-ism (getting the program name).
 
 * `wineify.c`:
   * This one is highly specific and probably not well suited for any task.
