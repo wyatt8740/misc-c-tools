@@ -16,17 +16,21 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-/* linux hack job by wyatt ward */
-
 #include <sys/stat.h>
 /*#include <sys/sysctl.h>*/
 
 #include <err.h>
+
+#ifdef __GLIBC__
 #define _GNU_SOURCE
 #include <errno.h>
-
 /* linux: error_print_progname glibc */
-#include <error.h> 
+#include <error.h>
+#else
+/* BSD: don't define _GNU_SOURCE, don't include error.h */
+#include <errno.h>
+#endif
+
 #include <limits.h>
 #include <paths.h>
 #include <stdio.h>
@@ -38,17 +42,18 @@
 #define PROG_WHICH	1
 #define PROG_WHEREIS	2
 
-extern char* program_invocation_name;
+#ifdef __GLIBC__
+extern char* program_invocation_short_name;
 
 void vwarnc(int code, const char *format, va_list ap)
 {
-/*	fprintf(stderr, "%s: ", getprogname());*/
-	fprintf(stderr, "%s: ", program_invocation_name);
-	if (format) {
-		vfprintf(stderr, format, ap);
-		fprintf(stderr, ": ");
-	}
-	fprintf(stderr, "%s\n", strerror(code));
+  /* fprintf(stderr, "%s: ", getprogname());*/
+  fprintf(stderr, "%s: ", program_invocation_short_name);
+  if (format) {
+    vfprintf(stderr, format, ap);
+    fprintf(stderr, ": ");
+  }
+  fprintf(stderr, "%s\n", strerror(code));
 }
 
 void
@@ -60,8 +65,9 @@ warnc(int code, const char *format, ...)
 	vwarnc(code, format, ap);
 	va_end(ap);
 }
-
+#else
 extern char *__progname;
+#endif
 
 int findprog(char *, char *, int, int);
 static void usage(void);
@@ -97,7 +103,11 @@ main(int argc, char *argv[])
 	if (argc == 0)
 		usage();
 
+#ifdef __GLIBC__
+	if (strcmp(program_invocation_short_name, "whereis") == 0) {
+#else
 	if (strcmp(__progname, "whereis") == 0) {
+#endif
 		progmode = PROG_WHEREIS;
 		path = _PATH_STDPATH;
 	} else {
@@ -111,9 +121,10 @@ main(int argc, char *argv[])
 	if (setuid(geteuid()))
 		err(1, "Can't set uid to %u", geteuid());
 
-    /* linux */
-/*	if (pledge("stdio rpath", NULL) == -1)
-    err(2, "pledge");*/
+#ifndef __GLIBC__
+	if (pledge("stdio rpath", NULL) == -1)
+    err(2, "pledge");
+#endif
 
 	for (n = 0; n < argc; n++)
 		if (findprog(argv[n], path, progmode, allmatches) == 0)
@@ -181,6 +192,10 @@ findprog(char *prog, char *path, int progmode, int allmatches)
 static void
 usage(void)
 {
+#ifdef __GLIBC__
+	(void)fprintf(stderr, "usage: %s [-a] name ...\n", program_invocation_short_name);
+#else
 	(void)fprintf(stderr, "usage: %s [-a] name ...\n", __progname);
+#endif
 	exit(1);
 }
