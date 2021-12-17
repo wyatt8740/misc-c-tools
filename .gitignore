@@ -2,4 +2,5 @@ case-insensitive-pattern
 realpath-posix
 quotify
 sleep-decimal
+which
 wineify
