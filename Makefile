@@ -16,7 +16,10 @@ override CFLAGS += -g
 
 .PHONY: all
 
-all: case-insensitive-pattern quotify realpath-posix rgb2hex sleep-decimal which wineify
+all: add-vpn-param case-insensitive-pattern killsuid quotify realpath-posix rgb2hex sleep-decimal which wineify
+
+add-vpn-param: add-vpn-param.c
+	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 case-insensitive-pattern: case-insensitive-pattern.c
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
@@ -39,10 +42,13 @@ which: which.c
 wineify: wineify.c
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
+killsuid: killsuid.c
+	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
+
 .PHONY: clean
 
 clean:
-	rm -f case-insensitive-pattern quotify realpath-posix sleep-decimal which wineify
+	rm -f case-insensitive-pattern killsuid quotify realpath-posix sleep-decimal which wineify
 
 # Strip will die on nonexistant files but will still strip whatever it can
 # first
