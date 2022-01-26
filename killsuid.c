@@ -95,7 +95,7 @@ pid_t get_proc_pid(char *prog_name) {
 }
 
 /* this function allocates a string that is returned. */
-  char *read_line(FILE *stream, int *chr) {
+char *read_line(FILE *stream, int *chr) {
   /* start with 22 chars and null terminator. On my test this was enough to
      avoid all reallocations (on my machine). */
   /* I have also verified correct behavior with smaller initial values and
