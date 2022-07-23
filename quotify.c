@@ -47,12 +47,12 @@ void doQuote(FILE *stream)
     if(chr=='"'){
       if(quoteState)
       {
-        printf("“"); /* more than 1 byte, so we can't use putchar(). */
+        printf("”"); /* more than 1 byte, so we can't use putchar(). */
         quoteState=0; /* no longer in a quote. */
       }
       else
       {
-        printf("”");
+        printf("“");
         quoteState=1; /* starting a quote. */
       }
     }
