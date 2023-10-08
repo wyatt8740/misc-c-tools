@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
     }
     break;
   default:
-    fprintf(stderr,"Error: Zero one one argument(s) should be provided.\n");
+    fprintf(stderr,"Error: Zero or one argument(s) should be provided.\n");
     return 1;
   }
 }
