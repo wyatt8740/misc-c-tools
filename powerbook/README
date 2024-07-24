@@ -1,0 +1,15 @@
+
+
+These programs have hardcoded sysfs paths in them, and therefore may be
+applicable only to my specific powerbook/kernel/distro. Check before using.
+
+* The 'temp' program just prints the current sensor readings out of sysfs.
+
+* The 'fanlimit' program prints the currently set value of `limit_adjust`
+  if no arguments are given, and sets the value if one argument is given.
+  it is written as a string, so whatever you make the first argument is what
+  it will attempt to write to sysfs.
+
+The primary reason for these tools existing is so I can adjust the fan with
+the setuid bit on a binary. Setuid can't be used on shell scripts under Linux
+(...although I am unsure about the BSD's).

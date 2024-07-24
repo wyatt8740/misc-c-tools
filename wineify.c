@@ -49,11 +49,15 @@ void winepath(char *str)
   char c;
   /* execlp("winepath", (const char*) str, (const char *) NULL);*/
   char *run_string=(char *)malloc((sizeof(char)) * strlen(str) + strlen("winepath -w \"\"") + 2); /* + 2 because '%s' is two chars and we might only have a one char replacement for it, also +1 for the null terminator */
+  if(!run_string) {
+    fprintf(stderr, "E: malloc() failed for `run_string'!\n");
+    return;
+  }
   sprintf(run_string, "winepath -w \"%s\"", str);
   FILE *fp=popen(run_string, "r");
   if(fp==NULL)
   {
-    fprintf(stderr, "E: unable to open process\n");
+    fprintf(stderr, "E: unable to open process!\n");
     free(run_string);
     return;
   }

@@ -1,6 +1,10 @@
+addline
+add-vpn-param
 case-insensitive-pattern
-realpath-posix
+killsuid
 quotify
+realpath-posix
+rgb2hex
 sleep-decimal
 which
 wineify

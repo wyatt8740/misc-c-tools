@@ -15,6 +15,21 @@ For instance:
     `grep`, POSIX `sed` has no such provisions. 
   * `example text` becomes `[Ee][Xx][Aa][Mm][Pp][Ll][Ee] [Tt][Ee][Xx][Tt]`
 
+* `killsuid.c`:
+  * A pedantically POSIX portable program to search for and kill wpa_supplicant
+    and openvpn.
+  * Unfortunately, this pedanticism means I have to parse 'ps' output.
+  * Name comes from the fact that you might have to run this as root.
+  * Not recommended for general usage, but I enjoyed writing the program.
+  * One of the first programs in C that I haven't minded doing memory
+    management in.
+  * Written in C so that it can be made suid root if desired (shell scripts
+    cannot in most implementations).
+  * Note: this uses `popen()`, which is a relative of the `system()` call and
+    which is known to have security issues. I didn't want to take the time to
+    manually do the `pipe()`, `fork()`, `execl()` method.
+  * source code contains a list of the possible return codes and what
+    they all mean.
 * `quotify.c`:
   * Somewhat intelligently replaces "double quotes" with “curly quotes” (in
     UTF-8).
@@ -29,15 +44,19 @@ For instance:
 * `which.c`:
   * This one I did not write; it was [stolen from OpenBSD](https://cvsweb.openbsd.org/cgi-bin/cvsweb/~checkout~/src/usr.bin/which/which.c?rev=1.27&content-type=text/plain)
     and modified just enough to compile without warnings on Linux. This was
-    prompted by Debian's removal of its `which` shell script from `debianutils,
-    since their recommended replacement, `command -v`, has a handful of
-    shortcomings regarding aliases, and also does not have an analogue for
-    `which -a`. Also, since pretty much every free Unix for a long time has had
-    `which` (going back to NetBSD in the 90's at least), it seems like an
-    unusual choice to remove. The man pages are also included (unaltered).
+    prompted by Debian removing the `which` shell script from `debianutils`.
+    Their recommended replacement, `command -v`, has a handful of shortcomings
+    regarding aliases, and also does not have an analogue for `which -a`.
+
+    Also, since pretty much every free Unix for a long time has had `which`
+    (going back to NetBSD in the 90's at least, and probably 3BSD), it seems
+    like an unusual choice to remove. The man pages are also included
+    (unaltered).
+
     The only thing I wrote for this was a Makefile, plus a few minor
-    tweaks (under ten lines) to get rid of OpenBSD-isms and replace one
-    such OpenBSD-ism with a Linux-ism (getting the program name).
+    tweaks (under ten lines) to get rid of OpenBSD-isms (like `pledge()`).
+    I also replaced one such OpenBSD-ism with a Linux-ism (getting the
+    program name).
 
 * `wineify.c`:
   * This one is highly specific and probably not well suited for any task.
